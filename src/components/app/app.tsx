@@ -1,10 +1,14 @@
 import React from 'react';
 
 import Header from '../header/header';
+import Footer from '../footer/footer';
 
 const App: React.FC = () => {
   return (
-    <Header />
+    <React.Fragment>
+      <Header />
+      <Footer />
+    </React.Fragment>
   )
 }
 
