@@ -23,6 +23,9 @@
     "start": "webpack-dev-server"
   },
   "dependencies": {
+    "@types/react-router": "^5.1.11",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
     "styled-components": "^5.2.1"
   }
 }
