@@ -1,7 +1,8 @@
 import React from "react";
 
-import Header from "../header/header";
+import Field from "../field/field";
 import Footer from "../footer/footer";
+import Header from "../header/header";
 
 import { createGlobalStyle } from "styled-components";
 
@@ -13,6 +14,9 @@ const GlobalStyle = createGlobalStyle`
   }
 
   main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     flex: 1 0 auto;
   }
 `;
@@ -22,6 +26,7 @@ const App: React.FC = () => {
     <React.Fragment>
       <GlobalStyle />
       <Header />
+      <Field />
       <Footer />
     </React.Fragment>
   );
