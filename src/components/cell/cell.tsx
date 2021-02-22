@@ -12,8 +12,8 @@ const StyledCell = styled.nav`
   font-size: 35px;
 `;
 
-const Cell: React.FC<{ number: number }> = (props) => {
-  return <StyledCell>{props.number}</StyledCell>;
+const Cell: React.FC<{ number: number }> = ({ number }) => {
+  return <StyledCell>{number}</StyledCell>;
 };
 
 export default Cell;

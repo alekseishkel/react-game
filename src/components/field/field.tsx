@@ -7,6 +7,7 @@ import styled from "styled-components";
 const StyledFiled = styled.div`
   display: flex;
   flex-wrap: wrap;
+  flex-shrink: 0;
   width: 350px;
   height: 350px;
   padding: 25px;
@@ -19,13 +20,11 @@ const Field: React.FC = () => {
   const [cells, setCells] = useState<number[]>([null, 1, 2, 3, 4, 5, 6, 7, 8]);
 
   return (
-    <main>
-      <StyledFiled className="cells">
-        {cells.map((cell) => {
-          return <Cell number={cell} />;
-        })}
-      </StyledFiled>
-    </main>
+    <StyledFiled className="cells">
+      {cells.map((cell) => {
+        return <Cell number={cell} />;
+      })}
+    </StyledFiled>
   );
 };
 
