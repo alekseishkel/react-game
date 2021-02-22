@@ -6,15 +6,15 @@ import Footer from "../footer/footer";
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-body {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-}
+  body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
 
-main {
-  flex: 1 0 auto;
-}
+  main {
+    flex: 1 0 auto;
+  }
 `;
 
 const App: React.FC = () => {

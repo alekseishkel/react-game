@@ -1,42 +1,49 @@
 import React from "react";
 import styled from "styled-components";
 
-const StyledHeader = styled.div`
-  padding: 0 1%;
+const Copyright = styled.div`
+  text-align: center;
 `;
 
-const Header: React.FC = () => {
+const Footer: React.FC = () => {
   return (
     <footer className="page-footer blue darken-3">
       <div className="container">
         <div className="row">
           <div className="col l6 s12">
-            <h5 className="white-text">Footer Content</h5>
+            <h5 className="white-text">Правила игры</h5>
             <p className="grey-text text-lighten-4">
-              You can use rows and columns here to organize your footer content.
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorem
+              nostrum ullam debitis possimus libero amet eum consectetur natus?
+              Adipisci iure ratione cupiditate sit, quam voluptatum error libero
+              praesentium cum iusto!
             </p>
           </div>
           <div className="col l4 offset-l2 s12">
-            <h5 className="white-text">Links</h5>
+            <h5 className="white-text">Ссылки</h5>
             <ul>
               <li>
-                <a className="grey-text text-lighten-3" href="#!">
-                  Link 1
+                <a
+                  className="grey-text text-lighten-3"
+                  href="https://github.com/alekseishkel"
+                >
+                  <img src="/img/github.png" width="82px" alt="Github" />
                 </a>
               </li>
               <li>
-                <a className="grey-text text-lighten-3" href="#!">
-                  Link 2
+                <a
+                  className="grey-text text-lighten-3"
+                  href="https://rs.school/js/"
+                >
+                  <img src="/img/rs_school.svg" width="82px" alt="RS School" />
                 </a>
               </li>
               <li>
-                <a className="grey-text text-lighten-3" href="#!">
-                  Link 3
-                </a>
-              </li>
-              <li>
-                <a className="grey-text text-lighten-3" href="#!">
-                  Link 4
+                <a
+                  className="grey-text text-lighten-3"
+                  href="https://www.youtube.com/"
+                >
+                  <img src="/img/youtube.png" width="82px" alt="RS School" />
                 </a>
               </li>
             </ul>
@@ -45,14 +52,11 @@ const Header: React.FC = () => {
       </div>
       <div className="footer-copyright">
         <div className="container">
-          © 2014 Copyright Text
-          <a className="grey-text text-lighten-4 right" href="#!">
-            More Links
-          </a>
+          <Copyright>© 2020 Пятнашки</Copyright>
         </div>
       </div>
     </footer>
   );
 };
 
-export default Header;
+export default Footer;
