@@ -11,18 +11,18 @@ const StyledFiled = styled.div`
   width: 350px;
   height: 350px;
   padding: 25px;
-  background-color: #1565c0;
+  background-color: #795548;
   border-radius: 10px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 `;
 
 const Field: React.FC = () => {
-  const [cells, setCells] = useState<number[]>([null, 1, 2, 3, 4, 5, 6, 7, 8]);
+  const [cells, setCells] = useState<number[]>([1, 2, 3, 4, 5, 6, 7, 8, null]);
 
   return (
     <StyledFiled className="cells">
-      {cells.map((cell) => {
-        return <Cell number={cell} />;
+      {cells.map((cell, i) => {
+        return <Cell key={cell + i} number={cell} />;
       })}
     </StyledFiled>
   );
