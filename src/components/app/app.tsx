@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
-import Header from '../header/header';
-import Footer from '../footer/footer';
+import Header from "../header/header";
+import Footer from "../footer/footer";
 
 const App: React.FC = () => {
   return (
@@ -9,7 +9,7 @@ const App: React.FC = () => {
       <Header />
       <Footer />
     </React.Fragment>
-  )
-}
+  );
+};
 
 export default App;
