@@ -6,7 +6,10 @@ const StyledSizeButton = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   width: 510px;
-  margin-top: 10px;
+
+  @media (max-width: 768px) {
+    width: 165px;
+  }
 `;
 
 const SizeButton: React.FC = () => {

@@ -7,12 +7,12 @@ const Copyright = styled.div`
 
 const Footer: React.FC = () => {
   return (
-    <footer className="page-footer  blue-grey lighten-5">
+    <footer className="page-footer blue-grey lighten-5">
       <div className="container">
         <div className="row">
           <div className="col l6 s12">
             <h5 className="black-text">Правила игры</h5>
-            <p className="black-text">
+            <p className="black-text rules">
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorem
               nostrum ullam debitis possimus libero amet eum consectetur natus?
               Adipisci iure ratione cupiditate sit, quam voluptatum error libero
@@ -21,7 +21,7 @@ const Footer: React.FC = () => {
           </div>
           <div className="col l4 offset-l2 s12">
             <h5 className="black-text">Ссылки</h5>
-            <ul>
+            <ul className="links">
               <li>
                 <a
                   className="grey-text text-lighten-3"
