@@ -7,7 +7,7 @@ const StyledCell = styled.nav`
   align-items: center;
   width: 100px;
   height: 100px;
-  background-color: #bcaaa4;
+  background-color: #eceff1;
   color: #000000;
   font-size: 35px;
 `;

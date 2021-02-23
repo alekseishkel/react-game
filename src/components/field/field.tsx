@@ -11,7 +11,7 @@ const StyledFiled = styled.div`
   width: 350px;
   height: 350px;
   padding: 25px;
-  background-color: #795548;
+  background-color: #b0bec5;
   border-radius: 10px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 `;

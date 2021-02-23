@@ -8,13 +8,15 @@ const StyledHeader = styled.nav`
 const Header: React.FC = () => {
   return (
     <header>
-      <StyledHeader className="nav-wrapper brown lighten-2">
+      <StyledHeader className="nav-wrapper blue-grey lighten-5">
         <a href="#" className="brand-logo black-text">
           Пятнашки
         </a>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
           <li>
-            <a className="black-text" href="sass.html">Правила</a>
+            <a className="black-text" href="sass.html">
+              Правила
+            </a>
           </li>
         </ul>
       </StyledHeader>

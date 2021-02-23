@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
     justify-content: center;
     align-items: center;
     flex: 1 0 auto;
-    background-color: #efebe9
+    background-color: #607d8b
   }
 
   .row {
@@ -25,11 +25,11 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .btn {
-    background-color: #795548;
+    background-color: #b0bec5;
   }
 
   .btn:hover {
-    background-color: #5d4037;
+    background-color: #78909c;
   }
 `;
 

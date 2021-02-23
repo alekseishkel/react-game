@@ -7,7 +7,7 @@ const Copyright = styled.div`
 
 const Footer: React.FC = () => {
   return (
-    <footer className="page-footer brown lighten-2">
+    <footer className="page-footer  blue-grey lighten-5">
       <div className="container">
         <div className="row">
           <div className="col l6 s12">
