@@ -1,7 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
-const StyledCell = styled.nav`
+interface CellProps {
+  number: number, 
+  key: number, 
+  onCellClick: (nubmer: number) => void;
+}
+
+const StyledCell = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,8 +18,9 @@ const StyledCell = styled.nav`
   font-size: 35px;
 `;
 
-const Cell: React.FC<{ number: number }> = ({ number }) => {
-  return <StyledCell>{number}</StyledCell>;
+const Cell: React.FC<CellProps> = ({ number, onCellClick }) => {
+
+  return <StyledCell onClick={() => onCellClick(number)}>{number}</StyledCell>;
 };
 
 export default Cell;
