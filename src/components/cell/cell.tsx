@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 interface CellProps {
-  number: number, 
-  key: number, 
+  number: number;
+  key: number;
   onCellClick: (nubmer: number) => void;
 }
 
@@ -19,7 +19,6 @@ const StyledCell = styled.div`
 `;
 
 const Cell: React.FC<CellProps> = ({ number, onCellClick }) => {
-
   return <StyledCell onClick={() => onCellClick(number)}>{number}</StyledCell>;
 };
 
