@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Cell from "../cell/cell";
 
 import styled from "styled-components";
 
 interface FieldProps {
-  cellNumbers: number[];
+  cells: number[];
+  fieldSize: number;
+  setCells: (cells: number[]) => void;
 }
 
 const StyledFiled = styled.nav`
@@ -20,22 +22,19 @@ const StyledFiled = styled.nav`
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 `;
 
-const Field: React.FC<FieldProps> = ({ cellNumbers }) => {
-  const [cells, setCells] = useState<number[]>(cellNumbers);
-  const [fieldSize, setFieldSize] = useState<number>(3);
-
+const Field: React.FC<FieldProps> = ({ cells, fieldSize, setCells }) => {
   const nullCellIndex: number = cells.findIndex((cell) => cell === null);
 
   const onCellClick = (number: number): void => {
-    setCells((cells) => {
-      const cellIndex: number = cells.findIndex((cell) => cell === number);
+    const cellIndex: number = cells.findIndex((cell) => cell === number);
 
-      cells.splice(cellIndex, 1, null);
-      cells.splice(nullCellIndex, 1, number);
+    const changedCells = cells.slice();
+    changedCells.splice(cellIndex, 1, null);
+    changedCells.splice(nullCellIndex, 1, number);
 
-      return [...cells];
-    });
+    setCells(changedCells);
   };
+
   return (
     <StyledFiled className="cells">
       {cells.map((number, i) => {

@@ -32,25 +32,17 @@ const StyledCell = styled.div`
   font-size: 35px;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
   cursor: pointer;
-  animation: ${(props) => (props.allowed ? animation : "none")};
+  animation: ${(props: { allowed: boolean }) => (props.allowed ? animation : "none")};
 `;
 
-const Cell: React.FC<CellProps> = ({
-  cellIndex,
-  fieldSize,
-  number,
-  nullCellIndex,
-  onCellClick,
-}) => {
-  if (
-    ((nullCellIndex + 1) % fieldSize === 0 && cellIndex % fieldSize === 0) ||
+const Cell: React.FC<CellProps> = ({ cellIndex, fieldSize, number, nullCellIndex, onCellClick }) => {
+  if (((nullCellIndex + 1) % fieldSize === 0 && cellIndex % fieldSize === 0) ||
     (nullCellIndex % fieldSize === 0 && (cellIndex + 1) % fieldSize === 0)
   ) {
     return <StyledCell>{number}</StyledCell>;
   }
 
-  if (
-    nullCellIndex === cellIndex + 1 ||
+  if (nullCellIndex === cellIndex + 1 ||
     nullCellIndex === cellIndex - 1 ||
     nullCellIndex === cellIndex + fieldSize ||
     nullCellIndex === cellIndex - fieldSize

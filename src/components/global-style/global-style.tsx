@@ -33,6 +33,10 @@ const GlobalStyle = createGlobalStyle`
     background-color: #78909c;
   }
 
+  .btn:focus {
+    background-color: #b0bec5;
+  }
+
   .nav-wrapper {
     height: 50px;
     line-height: 48px;
