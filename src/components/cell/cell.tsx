@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 
 interface CellProps {
   cellIndex: number;
@@ -10,18 +10,31 @@ interface CellProps {
   onCellClick: (nubmer: number) => void;
 }
 
+const flashing = keyframes`
+  0% { background-color: rgba(236,239,241, 0.3); }
+  50% { background-color: rgba(236,239,241, 1); }
+  100% { background-color: rgba(236,239,241, 0.3); }
+}
+`;
+
+const animation = css`
+  ${flashing} 2.5s linear infinite;
+`;
+
 const StyledCell = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100px;
   height: 100px;
-  background-color: ${(props) => (props.allowed ? "#cfd8dc" : "#eceff1")};
+  background-color: #eceff1;
   color: #000000;
   font-size: 35px;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
   cursor: pointer;
+  animation: ${(props) => (props.allowed ? animation : "none")};
 `;
+
 const Cell: React.FC<CellProps> = ({
   cellIndex,
   fieldSize,
@@ -43,7 +56,9 @@ const Cell: React.FC<CellProps> = ({
     nullCellIndex === cellIndex - fieldSize
   ) {
     return (
-      <StyledCell onClick={() => onCellClick(number)}>{number}</StyledCell>
+      <StyledCell allowed onClick={() => onCellClick(number)}>
+        {number}
+      </StyledCell>
     );
   }
 
