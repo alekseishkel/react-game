@@ -32,8 +32,24 @@ const Field: React.FC<FieldProps> = ({ cells, fieldSize, setCells }) => {
     changedCells.splice(cellIndex, 1, null);
     changedCells.splice(nullCellIndex, 1, number);
 
+
+
     setCells(changedCells);
   };
+
+  useEffect(() => {
+    const isCellsInOrder = cells.every((el, i) => {
+      if (el === null) {
+        return true;
+      }
+
+      return (el - 1) - i === 0;
+    })
+
+    if (isCellsInOrder) {
+      console.log("Вы победили!");
+    }
+  }, [cells])
 
   return (
     <StyledFiled className="cells">
