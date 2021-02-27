@@ -20,18 +20,18 @@ const StyledSizeButton = styled.div`
 
 const SizeButton: React.FC<SizeButtonProps> = ({ fieldSize, setFieldSize, setCells }) => {
   const onSizeButtonClick = (evt: React.MouseEvent<HTMLButtonElement>) => {
-    const getCells = (): number[] => {
-      let cells = [];
-      for (let i = 1; i <= fieldSize * fieldSize; i++) {
-        i === fieldSize * fieldSize ? cells.push(null) : cells.push(i);
-      }
-
-      return cells;
-    }
-
     setFieldSize(Number(evt.currentTarget.value));
-    setCells(getCells());
   };
+
+  const getCells = (): number[] => {
+    let cells = new Array(fieldSize * fieldSize).fill(0).map((_, i) => ++i);
+
+    return [...cells.slice(0, cells.length - 1), null];
+  }
+
+  useEffect(() => {
+    setCells(getCells());
+  }, [fieldSize])
 
   return (
     <StyledSizeButton>
