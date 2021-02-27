@@ -6,9 +6,11 @@ import GlobalStyle from "../global-style/global-style";
 import Header from "../header/header";
 import SizeButton from "../size-button/size-button";
 
+import shuffleCells from '../../utils/utils';
+
 const App: React.FC = () => {
-  const [cells, setCells] = useState<number[]>([1, 2, 3, 4, 5, 6, 7, 8, null]);
-  const [fieldSize, setFieldSize] = useState<number>(3);
+  const [cells, setCells] = useState<number[]>(shuffleCells([1, 2, 3, 4, 5, 6, 7, 8, null]));
+  const [fieldSize, setFieldSize] = useState<number>(4);
 
   return (
     <React.Fragment>
