@@ -7,7 +7,9 @@ import styled from "styled-components";
 interface FieldProps {
   cells: number[];
   fieldSize: number;
+  isWon: boolean;
   setCells: (cells: number[]) => void;
+  setIsWon: (isWon: boolean) => void;
 }
 
 const StyledFiled = styled.nav`
@@ -22,17 +24,15 @@ const StyledFiled = styled.nav`
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 `;
 
-const Field: React.FC<FieldProps> = ({ cells, fieldSize, setCells }) => {
+const Field: React.FC<FieldProps> = ({ cells, fieldSize, isWon, setCells, setIsWon }) => {
   const nullCellIndex: number = cells.findIndex((cell) => cell === null);
 
   const onCellClick = (number: number): void => {
     const cellIndex: number = cells.findIndex((cell) => cell === number);
-
     const changedCells = cells.slice();
+
     changedCells.splice(cellIndex, 1, null);
     changedCells.splice(nullCellIndex, 1, number);
-
-
 
     setCells(changedCells);
   };
@@ -47,7 +47,7 @@ const Field: React.FC<FieldProps> = ({ cells, fieldSize, setCells }) => {
     })
 
     if (isCellsInOrder) {
-      console.log("Вы победили!");
+      setIsWon(true);
     }
   }, [cells])
 
@@ -57,6 +57,7 @@ const Field: React.FC<FieldProps> = ({ cells, fieldSize, setCells }) => {
         return <Cell
           cellIndex={i}
           fieldSize={fieldSize}
+          isWon={isWon}
           key={number}
           nullCellIndex={nullCellIndex}
           number={number}

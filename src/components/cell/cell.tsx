@@ -4,6 +4,7 @@ import styled, { keyframes, css } from "styled-components";
 interface CellProps {
   cellIndex: number;
   fieldSize: number;
+  isWon: boolean;
   key: number;
   nullCellIndex: number;
   number: number;
@@ -33,11 +34,13 @@ const StyledCell = styled.div`
   color: #000000;
   font-size: 35px;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
-  cursor: pointer;
-  animation: ${(props: { allowed: boolean }) => (props.allowed ? animation : "none")};
+  cursor: ${(props: { allowed: boolean, isWon: boolean }) => (
+    props.allowed && props.isWon === false ? "pointer" : "default")};
+  animation: ${(props: { allowed: boolean, isWon: boolean }) => (
+    props.allowed && props.isWon === false ? animation : "none")};
 `;
 
-const Cell: React.FC<CellProps> = ({ cellIndex, fieldSize, number, nullCellIndex, onCellClick }) => {
+const Cell: React.FC<CellProps> = ({ cellIndex, fieldSize, isWon, number, nullCellIndex, onCellClick }) => {
   if (((nullCellIndex + 1) % fieldSize === 0 && cellIndex % fieldSize === 0) ||
     (nullCellIndex % fieldSize === 0 && (cellIndex + 1) % fieldSize === 0)
   ) {
@@ -50,7 +53,7 @@ const Cell: React.FC<CellProps> = ({ cellIndex, fieldSize, number, nullCellIndex
     nullCellIndex === cellIndex - fieldSize
   ) {
     return (
-      <StyledCell allowed fieldSize={fieldSize} onClick={() => onCellClick(number)}>
+      <StyledCell allowed={true} isWon={isWon} fieldSize={fieldSize} onClick={() => onCellClick(number)}>
         {number}
       </StyledCell>
     );
