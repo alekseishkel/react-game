@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, RefObject } from "react";
 
 import Field from "../field/field";
 import Footer from "../footer/footer";
@@ -20,7 +20,8 @@ const App: React.FC = () => {
       <GameWon isWon={isWon} setIsWon={setIsWon} />
       <Header />
       <main>
-        <Field cells={cells} fieldSize={fieldSize} isWon={isWon} setCells={setCells} setIsWon={setIsWon} />
+        <Field cells={cells} fieldSize={fieldSize} isWon={isWon} 
+          setCells={setCells} setIsWon={setIsWon} />
         <SizeButton fieldSize={fieldSize} setCells={setCells} setFieldSize={setFieldSize} />
       </main>
       <Footer />

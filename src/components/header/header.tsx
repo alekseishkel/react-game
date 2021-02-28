@@ -14,9 +14,9 @@ const Header: React.FC = () => {
         </a>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
           <li>
-            <a className="black-text" href="sass.html">
-              Правила
-            </a>
+            <button className="black-text" onClick={() => document.getElementById("field").requestFullscreen()}>
+              Фулл Скрин
+            </button>
           </li>
         </ul>
       </StyledHeader>

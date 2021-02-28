@@ -12,7 +12,7 @@ interface FieldProps {
   setIsWon: (isWon: boolean) => void;
 }
 
-const StyledFiled = styled.nav`
+const StyledFiled = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 340px;
@@ -52,7 +52,7 @@ const Field: React.FC<FieldProps> = ({ cells, fieldSize, isWon, setCells, setIsW
   }, [cells])
 
   return (
-    <StyledFiled className="cells">
+    <StyledFiled id="field">
       {cells.map((number, i) => {
         return <Cell
           cellIndex={i}
