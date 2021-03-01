@@ -20,7 +20,7 @@ const App: React.FC = () => {
       <GameWon isWon={isWon} setIsWon={setIsWon} />
       <Header />
       <main>
-        <Field cells={cells} fieldSize={fieldSize} isWon={isWon} 
+        <Field cells={cells} fieldSize={fieldSize} isWon={isWon}
           setCells={setCells} setIsWon={setIsWon} />
         <SizeButton fieldSize={fieldSize} setCells={setCells} setFieldSize={setFieldSize} />
       </main>

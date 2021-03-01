@@ -13,15 +13,31 @@ interface FieldProps {
 }
 
 const StyledFiled = styled.div`
+  width: 340px;
+  height: 340px;
+  margin: 10px 0;
+
+  &:fullscreen {
+    display: flex;
+    justify-content: center;
+    background-color: #607d8b;
+  }
+`;
+
+const StyledDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 340px;
   height: 340px;
-  margin: 10px 0;
   padding: 20px;
   background-color: #b0bec5;
   border-radius: 10px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+
+  ${StyledFiled}:fullscreen & {
+    width: 100vh;
+    height: 100vh;
+  }
 `;
 
 const Field: React.FC<FieldProps> = ({ cells, fieldSize, isWon, setCells, setIsWon }) => {
@@ -49,21 +65,23 @@ const Field: React.FC<FieldProps> = ({ cells, fieldSize, isWon, setCells, setIsW
     if (isCellsInOrder) {
       setIsWon(true);
     }
-  }, [cells])
+  }, [cells]);
 
   return (
     <StyledFiled id="field">
-      {cells.map((number, i) => {
-        return <Cell
-          cellIndex={i}
-          fieldSize={fieldSize}
-          isWon={isWon}
-          key={number}
-          nullCellIndex={nullCellIndex}
-          number={number}
-          onCellClick={onCellClick}
-        />;
-      })}
+      <StyledDiv className="cells-wrapper">
+        {cells.map((number, i) => {
+          return <Cell
+            cellIndex={i}
+            fieldSize={fieldSize}
+            isWon={isWon}
+            key={number}
+            nullCellIndex={nullCellIndex}
+            number={number}
+            onCellClick={onCellClick}
+          />;
+        })}
+      </StyledDiv>
     </StyledFiled>
   );
 };

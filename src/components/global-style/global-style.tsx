@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
     justify-content: center;
     align-items: center;
     flex: 1 0 auto;
-    background-color: #607d8b
+    background-color: #607d8b;
   }
 
   .row {

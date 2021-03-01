@@ -11,7 +11,7 @@ interface CellProps {
   onCellClick: (nubmer: number) => void;
 }
 
-const FIELD_SIZE_IN_PX = 300;
+const FIELD_SIZE_IN_PERCENTS = 100;
 
 const flashing = keyframes`
   0% { background-color: rgba(236,239,241, 0.3); }
@@ -28,8 +28,8 @@ const StyledCell = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: ${(props: { fieldSize: number }) => FIELD_SIZE_IN_PX / props.fieldSize}px};
-  height: ${(props: { fieldSize: number }) => FIELD_SIZE_IN_PX / props.fieldSize}px};
+  width: ${(props: { fieldSize: number }) => FIELD_SIZE_IN_PERCENTS / props.fieldSize}%};
+  min-height: ${(props: { fieldSize: number }) => FIELD_SIZE_IN_PERCENTS / props.fieldSize}%};
   background-color: #eceff1;
   color: #000000;
   font-size: 35px;
@@ -44,7 +44,7 @@ const Cell: React.FC<CellProps> = ({ cellIndex, fieldSize, isWon, number, nullCe
   if (((nullCellIndex + 1) % fieldSize === 0 && cellIndex % fieldSize === 0) ||
     (nullCellIndex % fieldSize === 0 && (cellIndex + 1) % fieldSize === 0)
   ) {
-    return <StyledCell fieldSize={fieldSize}>{number}</StyledCell>;
+    return <StyledCell className="cell" fieldSize={fieldSize}>{number}</StyledCell>;
   }
 
   if (nullCellIndex === cellIndex + 1 ||
@@ -53,13 +53,18 @@ const Cell: React.FC<CellProps> = ({ cellIndex, fieldSize, isWon, number, nullCe
     nullCellIndex === cellIndex - fieldSize
   ) {
     return (
-      <StyledCell allowed={true} isWon={isWon} fieldSize={fieldSize} onClick={() => onCellClick(number)}>
+      <StyledCell
+        allowed={true}
+        className="cell"
+        isWon={isWon}
+        fieldSize={fieldSize}
+        onClick={() => onCellClick(number)}>
         {number}
       </StyledCell>
     );
   }
 
-  return <StyledCell fieldSize={fieldSize}>{number}</StyledCell>;
+  return <StyledCell className="cell" fieldSize={fieldSize}>{number}</StyledCell>;
 };
 
 export default Cell;
