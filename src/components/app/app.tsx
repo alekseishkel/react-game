@@ -5,6 +5,7 @@ import Footer from "../footer/footer";
 import GlobalStyle from "../global-style/global-style";
 import GameWon from "../game-won/game-won";
 import Header from "../header/header";
+import Music from "../audio/music";
 import SizeButton from "../size-button/size-button";
 
 import shuffleCells from '../../utils/utils';
@@ -18,6 +19,7 @@ const App: React.FC = () => {
     <React.Fragment>
       <GlobalStyle />
       <GameWon cells={cells} isWon={isWon} setCells={setCells} setIsWon={setIsWon} />
+      <Music />
       <Header />
       <main>
         <Field cells={cells} fieldSize={fieldSize} isWon={isWon}

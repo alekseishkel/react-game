@@ -22,6 +22,11 @@ const Header: React.FC = () => {
               <StyledImg className="img" src="/img/full_screen.svg" width="30px" alt="Full screen" />
             </a>
           </li>
+          <li>
+            <a className="black-text" onClick={() => document.getElementById("audio").play()}>
+              Плэй
+            </a>
+          </li>
         </ul>
       </StyledHeader>
     </header>
