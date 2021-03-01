@@ -17,7 +17,6 @@ const flashing = keyframes`
   0% { background-color: rgba(236,239,241, 0.3); }
   50% { background-color: rgba(236,239,241, 1); }
   100% { background-color: rgba(236,239,241, 0.3); }
-}
 `;
 
 const animation = css`

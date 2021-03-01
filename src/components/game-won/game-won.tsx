@@ -1,6 +1,6 @@
 import React from "react";
 
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 
 import shuffleCells from '../../utils/utils';
 
@@ -10,6 +10,45 @@ interface GameWonProps {
   setCells: (cells: number[]) => void;
   setIsWon: (isWon: boolean) => void;
 }
+
+const bounce = keyframes`
+  0% {
+    transform: translateY(-2000px);
+  }
+
+  75% {
+    transform: translateY(-5px);
+  }
+
+  80% {
+    transform: translateY(5px);
+  }
+
+  90% {
+    transform: translateY(-5px);
+  }
+
+  100% {
+    transform: translateY(0)
+  }
+`;
+
+const shake = keyframes`
+  0%,
+  100% {
+      transform: translateX(0);
+  }
+
+  50%,
+  70% {
+      transform: translateX(0.7px);
+  }
+
+  60%,
+  80% {
+      transform: translateX(-0.7px);
+  }
+`;
 
 const StyledGameWon = styled.div`
   display: flex;
@@ -22,6 +61,7 @@ const StyledGameWon = styled.div`
   font-family: "Segoe UI";
   font-size: 40px;
   background-color: rgba(0, 0, 0, 0.3);
+
 `;
 
 const StyledDiv = styled.div`
@@ -35,6 +75,7 @@ const StyledDiv = styled.div`
   border-radius: 5px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
   background-color: #eceff1;
+  animation: ${bounce} 1s linear;
 `
 
 const StyledParagraph = styled.div`
@@ -46,7 +87,7 @@ const StyledButton = styled.button`
   color: #000;
   font-weight: bold;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-
+  animation: ${shake} 1s linear infinite;
 `
 const GameWon: React.FC<GameWonProps> = ({ cells, isWon, setCells, setIsWon }) => {
   if (!isWon) {
