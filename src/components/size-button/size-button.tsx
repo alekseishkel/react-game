@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 import shuffleCells from '../../utils/utils';
 
@@ -9,11 +9,22 @@ interface SizeButtonProps {
   setFieldSize: (fieldSize: number) => void;
 }
 
+const bounceButtons = keyframes`
+  0% {
+    transform: translateX(2000px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+`;
+
 const StyledSizeButton = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   width: 510px;
+  animation: ${bounceButtons} 0.8s linear;
 
   @media (max-width: 768px) {
     width: 165px;

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import Cell from "../cell/cell";
 
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 
 interface FieldProps {
   cells: number[];
@@ -12,10 +12,31 @@ interface FieldProps {
   setIsWon: (isWon: boolean) => void;
 }
 
+const bounceField = keyframes`
+  0% {
+    transform: translateX(-2000px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+`;
+
+const rotate = keyframes`
+0% {
+  transform: rotate(180deg);
+}
+
+100% {
+  transform: rotate(360deg);
+}
+`;
+
 const StyledFiled = styled.div`
   width: 340px;
   height: 340px;
   margin: 10px 0;
+  animation: ${bounceField} 0.8s linear;
 
   &:fullscreen {
     display: flex;
@@ -33,6 +54,8 @@ const StyledDiv = styled.div`
   background-color: #b0bec5;
   border-radius: 10px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  animation: ${rotate} 0.8s linear;
+
 
   ${StyledFiled}:fullscreen & {
     width: 100vh;
