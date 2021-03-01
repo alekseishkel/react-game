@@ -23,7 +23,7 @@ const StyledSizeButton = styled.div`
 const SizeButton: React.FC<SizeButtonProps> = ({ fieldSize, setFieldSize, setCells }) => {
   const onSizeButtonClick = (evt: React.MouseEvent<HTMLButtonElement>) => {
     setFieldSize(Number(evt.currentTarget.value));
-  }; 
+  };
 
   const getCells = (): number[] => {
     const numbers = new Array(fieldSize * fieldSize).fill(0).map((_, i) => ++i);
@@ -34,8 +34,8 @@ const SizeButton: React.FC<SizeButtonProps> = ({ fieldSize, setFieldSize, setCel
 
   useEffect(() => {
     setCells(getCells());
-  }, [fieldSize])
-  
+  }, [fieldSize]);
+
   return (
     <StyledSizeButton>
       <button className="waves-effect waves-light btn" value="3" onClick={onSizeButtonClick}>Размер поля: 3х3</button>

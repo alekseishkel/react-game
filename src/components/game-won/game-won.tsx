@@ -1,8 +1,13 @@
 import React from "react";
+
 import styled from "styled-components";
 
+import shuffleCells from '../../utils/utils';
+
 interface GameWonProps {
+  cells: number[];
   isWon: boolean;
+  setCells: (cells: number[]) => void;
   setIsWon: (isWon: boolean) => void;
 }
 
@@ -43,7 +48,7 @@ const StyledButton = styled.button`
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 
 `
-const GameWon: React.FC<GameWonProps> = ({ isWon, setIsWon }) => {
+const GameWon: React.FC<GameWonProps> = ({ cells, isWon, setCells, setIsWon }) => {
   if (!isWon) {
     return null;
   }
@@ -55,7 +60,10 @@ const GameWon: React.FC<GameWonProps> = ({ isWon, setIsWon }) => {
         <StyledButton
           className="waves-effect waves-light btn"
           value="3"
-          onClick={() => setIsWon(false)}>
+          onClick={() => {
+            setIsWon(false)
+            setCells(shuffleCells(cells));
+          }}>
           Новая игра
         </StyledButton>
       </StyledDiv>
