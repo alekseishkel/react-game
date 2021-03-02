@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 interface HeaderProps {
   isMusicPlaying: boolean;
   moves: number;
   setIsMusicPlaying: (isMusicPlaying: boolean) => void;
+}
+
+interface Time {
+  minutes: number;
+  seconds: number;
 }
 
 const StyledHeader = styled.nav`
@@ -24,6 +29,28 @@ const StyledLi = styled.li`
 
 const Header: React.FC<HeaderProps> = ({ isMusicPlaying, moves, setIsMusicPlaying }) => {
   const [isSoundOn, setIsSoundOn] = useState<boolean>(true);
+  const [time, setTime] = useState<Time>({ minutes: 0, seconds: 0 });
+
+  useEffect(() => {
+    const ONE_SECOND = 1000;
+    let timer = setTimeout(() => {
+      setTime((prevState) => {
+        if (time.seconds === 59) {
+          return {
+            minutes: prevState.minutes + 1,
+            seconds: 0
+          }
+        }
+
+        return {
+          ...prevState,
+          seconds: prevState.seconds + 1
+        }
+      });
+    }, ONE_SECOND);
+
+    return () => clearTimeout(timer);
+  });
 
   return (
     <header>
@@ -34,6 +61,9 @@ const Header: React.FC<HeaderProps> = ({ isMusicPlaying, moves, setIsMusicPlayin
         <ul id="nav-mobile" className="right hide-on-med-and-down">
           <StyledLi>
             Ходы: {moves}
+          </StyledLi>
+          <StyledLi>
+            Время: {time.minutes < 10 ? "0" + time.minutes : "" + time.minutes}:{time.seconds < 10 ? "0" + time.seconds : "" + time.seconds}
           </StyledLi>
           <li>
             <a className="black-text" onClick={() => document.getElementById("field").requestFullscreen()}>
