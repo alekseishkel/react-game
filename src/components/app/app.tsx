@@ -10,8 +10,13 @@ import SizeButton from "../size-button/size-button";
 
 import shuffleCells from '../../utils/utils';
 
+interface Time {
+  minutes: number;
+  seconds: number;
+}
+
 const App: React.FC = () => {
-  const [cells, setCells] = useState<number[]>(shuffleCells([1, 2, 3, 4, 5, 6, 7, 8, null]));
+  const [cells, setCells] = useState<number[]>([1, 2, 3, 4, 5, 6, 7, null, 8]);
   const [fieldSize, setFieldSize] = useState<number>(4);
   const [isWon, setIsWon] = useState<boolean>(false);
   const [isMusicPlaying, setIsMusicPlaying] = useState<boolean>(false);

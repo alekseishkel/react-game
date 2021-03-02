@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 interface HeaderProps {
-  isWon: boolean;
   isMusicPlaying: boolean;
+  isWon: boolean;
   moves: number;
   setIsMusicPlaying: (isMusicPlaying: boolean) => void;
 }
@@ -30,7 +30,24 @@ const StyledLi = styled.li`
 
 const Header: React.FC<HeaderProps> = ({ isMusicPlaying, isWon, moves, setIsMusicPlaying }) => {
   const [isSoundOn, setIsSoundOn] = useState<boolean>(true);
-  const [time, setTime] = useState<Time>({ minutes: 0, seconds: 0 });
+  const [time, setTime] = useState<Time>({minutes:0,seconds:0});
+
+  if (isWon) {
+    const gameTable = JSON.parse(localStorage.getItem("react-game-table"));
+    
+    localStorage.removeItem("react-game-table");
+    
+    const lastResult = [time, moves];
+    
+    let updatedGameTable;
+    if (gameTable !== null) {
+      updatedGameTable = [lastResult, ...gameTable];
+    } else {
+      updatedGameTable = [lastResult];
+    }
+    
+    localStorage.setItem("react-game-table", JSON.stringify(updatedGameTable));
+  }
 
   useEffect(() => {
     const ONE_SECOND = 1000;
@@ -49,6 +66,10 @@ const Header: React.FC<HeaderProps> = ({ isMusicPlaying, isWon, moves, setIsMusi
         }
       });
     }, ONE_SECOND);
+
+    if (isWon) {
+      clearTimeout(timer);
+    }
 
     return () => clearTimeout(timer);
   }, [time]);
