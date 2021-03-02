@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import Cell from "../cell/cell";
 
-import styled, {keyframes} from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 interface FieldProps {
   cells: number[];
@@ -72,6 +72,11 @@ const Field: React.FC<FieldProps> = ({ cells, fieldSize, isWon, setCells, setIsW
 
     changedCells.splice(cellIndex, 1, null);
     changedCells.splice(nullCellIndex, 1, number);
+
+    const slideSound = document.getElementById("slide-sound") as HTMLAudioElement;
+    slideSound.pause();
+    slideSound.currentTime = 0;
+    slideSound.play();
 
     setCells(changedCells);
   };

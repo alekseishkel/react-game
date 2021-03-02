@@ -1,20 +1,22 @@
 import React, { useEffect, useRef } from 'react';
 
-const Music: React.FC = () => {
+interface MusicProps {
+  isMusicPlaying: boolean;
+}
+
+const Music: React.FC<MusicProps> = ({ isMusicPlaying }) => {
   const player = useRef<HTMLAudioElement>(null)
-  
+
   useEffect(() => {
-    player.current.play();
+    if (isMusicPlaying) {
+      player.current.play();
+    }
   }, []);
 
   return (
     <>
-      <audio
-        id="audio"
-        src="/audio/music.mp3"
-        autoPlay={true}
-        ref={player}
-      ></audio>
+      <audio id="music" src="/audio/music.mp3" ref={player} />
+      <audio id="slide-sound" src="/audio/slide-sound.mp3" />
     </>
   );
 }
