@@ -7,9 +7,11 @@ import styled, { keyframes } from "styled-components";
 interface FieldProps {
   cells: number[];
   fieldSize: number;
+  moves: number;
   isWon: boolean;
   setCells: (cells: number[]) => void;
   setIsWon: (isWon: boolean) => void;
+  setMoves: (moves: number) => void;
 }
 
 const bounceField = keyframes`
@@ -63,7 +65,7 @@ const StyledDiv = styled.div`
   }
 `;
 
-const Field: React.FC<FieldProps> = ({ cells, fieldSize, isWon, setCells, setIsWon }) => {
+const Field: React.FC<FieldProps> = ({ cells, fieldSize, isWon, moves, setCells, setIsWon, setMoves }) => {
   const nullCellIndex: number = cells.findIndex((cell) => cell === null);
 
   const onCellClick = (number: number): void => {
@@ -79,6 +81,7 @@ const Field: React.FC<FieldProps> = ({ cells, fieldSize, isWon, setCells, setIsW
     slideSound.play();
 
     setCells(changedCells);
+    setMoves(moves + 1);
   };
 
   useEffect(() => {

@@ -14,9 +14,8 @@ interface CellProps {
 const FIELD_SIZE_IN_PERCENTS = 100;
 
 const flashing = keyframes`
-  0% { background-color: rgba(236,239,241, 0.3); }
+  0%, 100% { background-color: rgba(236,239,241, 0.3); }
   50% { background-color: rgba(236,239,241, 1); }
-  100% { background-color: rgba(236,239,241, 0.3); }
 `;
 
 const animation = css`
@@ -33,10 +32,10 @@ const StyledCell = styled.div`
   color: #000000;
   font-size: 35px;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
-  cursor: ${(props: { allowed: boolean, isWon: boolean }) => (
-    props.allowed && props.isWon === false ? "pointer" : "default")};
-  animation: ${(props: { allowed: boolean, isWon: boolean }) => (
-    props.allowed && props.isWon === false ? animation : "none")};
+  cursor: ${(props: { allowedCell: boolean, isWon: boolean }) => (
+    props.allowedCell && props.isWon === false ? "pointer" : "default")};
+  animation: ${(props: { allowedCell: boolean, isWon: boolean }) => (
+    props.allowedCell && props.isWon === false ? animation : "none")};
 `;
 
 const Cell: React.FC<CellProps> = ({ cellIndex, fieldSize, isWon, number, nullCellIndex, onCellClick }) => {
@@ -53,7 +52,7 @@ const Cell: React.FC<CellProps> = ({ cellIndex, fieldSize, isWon, number, nullCe
   ) {
     return (
       <StyledCell
-        allowed={true}
+        allowedCell={true}
         className="cell"
         isWon={isWon}
         fieldSize={fieldSize}

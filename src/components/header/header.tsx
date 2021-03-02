@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 interface HeaderProps {
   isMusicPlaying: boolean;
+  moves: number;
   setIsMusicPlaying: (isMusicPlaying: boolean) => void;
 }
 
@@ -14,7 +15,14 @@ const StyledImg = styled.img`
   vertical-align: middle;
 `;
 
-const Header: React.FC<HeaderProps> = ({ isMusicPlaying, setIsMusicPlaying }) => {
+const StyledLi = styled.li`
+  margin-right: 20px;
+  font-family: "Segoe UI";
+  font-size: 1.8rem;
+  color: #000;
+`;
+
+const Header: React.FC<HeaderProps> = ({ isMusicPlaying, moves, setIsMusicPlaying }) => {
   const [isSoundOn, setIsSoundOn] = useState<boolean>(true);
 
   return (
@@ -24,6 +32,9 @@ const Header: React.FC<HeaderProps> = ({ isMusicPlaying, setIsMusicPlaying }) =>
           Пятнашки
         </span>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
+          <StyledLi>
+            Ходы: {moves}
+          </StyledLi>
           <li>
             <a className="black-text" onClick={() => document.getElementById("field").requestFullscreen()}>
               <StyledImg src="/img/full_screen.svg" width="30px" alt="Full screen" />

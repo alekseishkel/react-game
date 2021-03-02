@@ -15,16 +15,17 @@ const App: React.FC = () => {
   const [fieldSize, setFieldSize] = useState<number>(4);
   const [isWon, setIsWon] = useState<boolean>(false);
   const [isMusicPlaying, setIsMusicPlaying] = useState<boolean>(false);
+  const [moves, setMoves] = useState<number>(0);
 
   return (
     <React.Fragment>
       <GlobalStyle />
       <GameWon cells={cells} isWon={isWon} setCells={setCells} setIsWon={setIsWon} />
       <Music isMusicPlaying={isMusicPlaying} />
-      <Header isMusicPlaying={isMusicPlaying} setIsMusicPlaying={setIsMusicPlaying} />
+      <Header isMusicPlaying={isMusicPlaying} moves={moves} setIsMusicPlaying={setIsMusicPlaying} />
       <main>
-        <Field cells={cells} fieldSize={fieldSize} isWon={isWon}
-          setCells={setCells} setIsWon={setIsWon} />
+        <Field cells={cells} fieldSize={fieldSize} isWon={isWon} moves={moves}
+          setCells={setCells} setIsWon={setIsWon} setMoves={setMoves} />
         <SizeButton fieldSize={fieldSize} setCells={setCells} setFieldSize={setFieldSize} />
       </main>
       <Footer />
