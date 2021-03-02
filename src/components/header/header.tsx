@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 interface HeaderProps {
+  isWon: boolean;
   isMusicPlaying: boolean;
   moves: number;
   setIsMusicPlaying: (isMusicPlaying: boolean) => void;
@@ -27,7 +28,7 @@ const StyledLi = styled.li`
   color: #000;
 `;
 
-const Header: React.FC<HeaderProps> = ({ isMusicPlaying, moves, setIsMusicPlaying }) => {
+const Header: React.FC<HeaderProps> = ({ isMusicPlaying, isWon, moves, setIsMusicPlaying }) => {
   const [isSoundOn, setIsSoundOn] = useState<boolean>(true);
   const [time, setTime] = useState<Time>({ minutes: 0, seconds: 0 });
 
@@ -50,7 +51,7 @@ const Header: React.FC<HeaderProps> = ({ isMusicPlaying, moves, setIsMusicPlayin
     }, ONE_SECOND);
 
     return () => clearTimeout(timer);
-  });
+  }, [time]);
 
   return (
     <header>

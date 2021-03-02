@@ -22,7 +22,7 @@ const App: React.FC = () => {
       <GlobalStyle />
       <GameWon cells={cells} isWon={isWon} setCells={setCells} setIsWon={setIsWon} />
       <Music isMusicPlaying={isMusicPlaying} />
-      <Header isMusicPlaying={isMusicPlaying} moves={moves} setIsMusicPlaying={setIsMusicPlaying} />
+      <Header isMusicPlaying={isMusicPlaying} isWon={isWon} moves={moves} setIsMusicPlaying={setIsMusicPlaying} />
       <main>
         <Field cells={cells} fieldSize={fieldSize} isWon={isWon} moves={moves}
           setCells={setCells} setIsWon={setIsWon} setMoves={setMoves} />
