@@ -53,7 +53,7 @@ const Footer: React.FC<FooterProps> = ({lang, mainColor}) => {
               <li>
                 <a
                   className="grey-text text-lighten-3"
-                  href="https://www.youtube.com/"
+                  href="https://www.youtube.com/watch?v=izJmp3efUDQ&feature=youtu.be"
                 >
                   <img src="/img/youtube.png" width="82px" alt="RS School" />
                 </a>
