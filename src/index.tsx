@@ -12,6 +12,10 @@ const store = createStore(
   (window as any).__REDUX_DEVTOOLS_EXTENSION__ ? (window as any).__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
 );
 
+window.onbeforeunload = () => {
+  sessionStorage.setItem('react-game-data', JSON.stringify(store.getState()));
+}
+
 ReactDOM.render(
   <Provider store={store}>
     <App />

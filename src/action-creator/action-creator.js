@@ -28,6 +28,11 @@ const ActionCreator = {
     type: `SET_TIME`,
     payload: time,
   }),
+
+  setIsSoundOn: (isSoundOn) => ({
+    type: `SET_IS_SOUND_ON`,
+    payload: isSoundOn,
+  }),
 };
 
 export default ActionCreator;

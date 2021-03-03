@@ -1,13 +1,34 @@
+import shuffleCells from "../utils/utils";
+
 const initialState = {
-  cells: [1, 2, 3, 4, 5, 6, 7, null, 8],
-  fieldSize: 4,
-  isWon: false,
-  moves: 0,
-  time: {
-    minutes: 0,
-    seconds: 0,
-  },
-  isMusicPlaying: false,
+  cells:
+    JSON.parse(sessionStorage.getItem(`react-game-data`)) !== null
+      ? JSON.parse(sessionStorage.getItem(`react-game-data`)).cells
+      : shuffleCells([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, null, 15]),
+  fieldSize:
+    JSON.parse(sessionStorage.getItem(`react-game-data`)) !== null
+      ? JSON.parse(sessionStorage.getItem(`react-game-data`)).fieldSize
+      : 4,
+  isWon:
+    JSON.parse(sessionStorage.getItem(`react-game-data`)) !== null
+      ? JSON.parse(sessionStorage.getItem(`react-game-data`)).isWon
+      : false,
+  moves:
+    JSON.parse(sessionStorage.getItem(`react-game-data`)) !== null
+      ? JSON.parse(sessionStorage.getItem(`react-game-data`)).moves
+      : 0,
+  time:
+    JSON.parse(sessionStorage.getItem(`react-game-data`)) !== null
+      ? JSON.parse(sessionStorage.getItem(`react-game-data`)).time
+      : { minutes: 0, seconds: 0 },
+  isMusicPlaying:
+    JSON.parse(sessionStorage.getItem(`react-game-data`)) !== null
+      ? JSON.parse(sessionStorage.getItem(`react-game-data`)).isMusicPlaying
+      : false,
+  isSoundOn:
+    JSON.parse(sessionStorage.getItem(`react-game-data`)) !== null
+      ? JSON.parse(sessionStorage.getItem(`react-game-data`)).isSoundOn
+      : true,
 };
 
 const reducer = (state = initialState, action) => {
@@ -35,6 +56,10 @@ const reducer = (state = initialState, action) => {
     case `SET_TIME`:
       return Object.assign({}, state, {
         time: action.payload,
+      });
+    case `SET_IS_SOUND_ON`:
+      return Object.assign({}, state, {
+        isSoundOn: action.payload,
       });
     default:
       return state;

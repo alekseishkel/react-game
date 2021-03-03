@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import { connect } from 'react-redux';
 import ActionCreator from '../../action-creator/action-creator';
@@ -7,16 +7,13 @@ import styled from "styled-components";
 
 interface HeaderProps {
   isMusicPlaying: boolean;
+  isSoundOn: boolean;
   isWon: boolean;
   moves: number;
   onMusicClick: (isMusicPlaying: boolean) => void;
   setTime: (time: { minutes: number, seconds: number }) => void;
+  setIsSoundOn: (isSoundOn: boolean) => void;
   time: { minutes: number, seconds: number };
-}
-
-interface Time {
-  minutes: number;
-  seconds: number;
 }
 
 const StyledHeader = styled.nav`
@@ -36,8 +33,8 @@ const StyledLi = styled.li`
 
 let timer = null;
 const ONE_SECOND = 1000;
-const Header: React.FC<HeaderProps> = ({ isMusicPlaying, isWon, moves, onMusicClick, time, setTime }) => {
-  const [isSoundOn, setIsSoundOn] = useState<boolean>(true);
+const Header: React.FC<HeaderProps> = ({ isMusicPlaying, isWon, isSoundOn, moves,
+  onMusicClick, time, setTime, setIsSoundOn }) => {
 
   useEffect(() => {
     if (isWon) {
@@ -91,9 +88,9 @@ const Header: React.FC<HeaderProps> = ({ isMusicPlaying, isWon, moves, onMusicCl
           </li>
           <li>
             <a className="black-text" onClick={() => {
-              setIsSoundOn(!isSoundOn);
+              setIsSoundOn(isSoundOn);
               const slideSound = document.getElementById("slide-sound") as HTMLAudioElement;
-              isSoundOn ? slideSound.volume = 1 : slideSound.volume = 1;
+              isSoundOn ? slideSound.volume = 0 : slideSound.volume = 1;
             }}>
               <StyledImg src={isSoundOn ? "/img/volume-on.svg" : "/img/volume-off.svg"} width="40px" alt="Sound on/off" />
             </a>
@@ -106,6 +103,7 @@ const Header: React.FC<HeaderProps> = ({ isMusicPlaying, isWon, moves, onMusicCl
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   isMusicPlaying: state.isMusicPlaying,
+  isSoundOn: state.isSoundOn,
   isWon: state.isWon,
   moves: state.moves,
   time: state.time
@@ -117,6 +115,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   setTime: (time) => {
     dispatch(ActionCreator.setTime(time));
+  },
+  setIsSoundOn: (isSoundOn) => {
+    dispatch(ActionCreator.setIsSoundOn(!isSoundOn));
   }
 });
 
