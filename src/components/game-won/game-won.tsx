@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { connect } from 'react-redux';
 import ActionCreator from '../../action-creator/action-creator';
 

@@ -31,23 +31,18 @@ const StyledLi = styled.li`
   color: #000;
 `;
 
-let timer = null;
 const ONE_SECOND = 1000;
 const Header: React.FC<HeaderProps> = ({ isMusicPlaying, isWon, isSoundOn, moves,
   onMusicClick, time, setTime, setIsSoundOn }) => {
 
   useEffect(() => {
-    if (isWon) {
-      clearTimeout(timer);
-    }
-
-    timer = setTimeout(() => {
-      if (time.seconds >= 59 && !isWon) {
+    let timer = setTimeout(() => {
+      if (time.seconds >= 59 && isWon === false) {
         setTime({
           minutes: time.minutes + 1,
           seconds: 0
         })
-      } else if (time.seconds < 59 && !isWon) {
+      } else if (time.seconds < 59 && isWon === false) {
         setTime({
           minutes: time.minutes,
           seconds: time.seconds + 1

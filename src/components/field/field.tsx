@@ -74,11 +74,9 @@ const Field: React.FC<FieldProps> = ({ cells, cellHandler, fieldSize, isWon, mov
   
   const cellListener = (number: number): void => {
     const cellIndex: number = cells.findIndex((cell) => cell === number);
-    console.log(nullCellIndex, (nullCellIndex + 1) % fieldSize === 0, cellIndex - nullCellIndex !== 1);
     
     if (0 < number && number < fieldSize * fieldSize) {
       const changedCells = cells.slice();
-      console.log(nullCellIndex, cellIndex);
       
       changedCells.splice(cellIndex, 1, null);
       changedCells.splice(nullCellIndex, 1, number);
