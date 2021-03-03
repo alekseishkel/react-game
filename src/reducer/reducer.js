@@ -1,8 +1,12 @@
 const initialState = {
   cells: [1, 2, 3, 4, 5, 6, 7, null, 8],
   fieldSize: 4,
-  isWon: true,
+  isWon: false,
   moves: 0,
+  time: {
+    minutes: 0,
+    seconds: 0,
+  },
   isMusicPlaying: false,
 };
 
@@ -27,6 +31,10 @@ const reducer = (state = initialState, action) => {
     case `SET_IS_MUSIC_PLAYING`:
       return Object.assign({}, state, {
         isMusicPlaying: action.payload,
+      });
+    case `SET_TIME`:
+      return Object.assign({}, state, {
+        time: action.payload,
       });
     default:
       return state;

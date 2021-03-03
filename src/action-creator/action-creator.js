@@ -23,6 +23,11 @@ const ActionCreator = {
     type: `SET_IS_MUSIC_PLAYING`,
     payload: isMusicPlaying,
   }),
+
+  setTime: (time) => ({
+    type: `SET_TIME`,
+    payload: time,
+  }),
 };
 
 export default ActionCreator;

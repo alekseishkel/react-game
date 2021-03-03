@@ -79,12 +79,12 @@ const Field: React.FC<FieldProps> = ({ cells, cellHandler, fieldSize, isWon, mov
     changedCells.splice(cellIndex, 1, null);
     changedCells.splice(nullCellIndex, 1, number);
 
+    cellHandler(changedCells, moves);
+
     const slideSound = document.getElementById("slide-sound") as HTMLAudioElement;
     slideSound.pause();
     slideSound.currentTime = 0;
     slideSound.play();
-
-    cellHandler(changedCells, moves)
   };
 
   useEffect(() => {

@@ -2,14 +2,16 @@ import React from "react";
 import { connect } from 'react-redux';
 import ActionCreator from '../../action-creator/action-creator';
 
-import styled, { keyframes, css } from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 import shuffleCells from '../../utils/utils';
 
 interface GameWonProps {
   cells: number[];
   isWon: boolean;
+  moves: number;
   onNewGameClick: (cells: number[]) => void;
+  time: { minutes: number, seconds: number };
 }
 
 const bounce = keyframes`
@@ -69,7 +71,7 @@ const StyledDiv = styled.div`
   justify-content: center;
   align-items: stretch;
   flex-wrap: wrap;
-  width: 340pw;
+  width: 40vw;
   border: 10px solid #b0bec5;
   border-radius: 5px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
@@ -82,66 +84,97 @@ const StyledTable = styled.table`
 `
 
 const StyledParagraph = styled.div`
-  margin-top: 80px;
+  margin-top: 20px;
+  font-size: 2.1rem;
+`
+
+const StyledTd = styled.td`
+  padding: 3px 10px;
 `
 
 const StyledButton = styled.button`
+  margin-top: 15px;
   background-color: #90a4ae;
   color: #000;
   font-weight: bold;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   animation: ${shake} 1s linear infinite;
 `
-const GameWon: React.FC<GameWonProps> = ({ cells, isWon, onNewGameClick }) => {
+const GameWon: React.FC<GameWonProps> = ({ cells, isWon, moves, onNewGameClick, time }) => {
   if (!isWon) {
     return null;
   }
+
+  const gameTable = JSON.parse(localStorage.getItem("react-game-table"));
+  const lastResult = [time, moves];
+  let updatedGameTable;
+
+  if (gameTable === null) {
+    updatedGameTable = [lastResult];
+  }
+
+  if (gameTable !== null && gameTable.length < 10) {
+    updatedGameTable = [lastResult, ...gameTable];
+  }
+
+  if (gameTable !== null && gameTable.length >= 10) {
+    const filtredGameTable = gameTable.filter((_, i) => i < 9);
+    updatedGameTable = [lastResult, ...filtredGameTable]
+  }
+
+  localStorage.setItem("react-game-table", JSON.stringify(updatedGameTable));
 
   return (
     <StyledGameWon>
       <StyledDiv>
         <StyledParagraph>Вы победили!</StyledParagraph>
         <StyledTable>
-          <tr>
-            <th>Последние результаты:</th>
-          </tr>
-          <tr>
-            <td></td>
-            <td>Время</td>
-            <td>Шаги</td>
-          </tr>
-          {JSON.parse(localStorage.getItem("react-game-table")).map((el, i) => {
-            return (
-              <tr>
-                <td>{i + 1}</td>
-                <td>{el[0].minutes}:{el[0].seconds}</td>
-                <td>{el[1]}</td>
-              </tr>
-            )
-          })}
+          <thead>
+            <tr>
+              <th>Последние результаты:</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <StyledTd></StyledTd>
+              <StyledTd>Время</StyledTd>
+              <StyledTd>Шаги</StyledTd>
+            </tr>
+            {updatedGameTable.map((el, i) => {
+              return (
+                <tr key={el[1].toString() + i.toString()}>
+                  <StyledTd>{i + 1}</StyledTd>
+                  <StyledTd>{el[0].minutes}:{el[0].seconds}</StyledTd>
+                  <StyledTd>{el[1]}</StyledTd>
+                </tr>
+              )
+            })}
+          </tbody>
         </StyledTable>
         <StyledButton
           className="waves-effect waves-light btn"
           value="3"
-          onClick={() => {
-
-          }}>
+          onClick={() => onNewGameClick(cells)}>
           Новая игра
         </StyledButton>
       </StyledDiv>
-    </StyledGameWon>
+    </StyledGameWon >
   );
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   cells: state.cells,
-  isWon: state.isWon
+  isWon: state.isWon,
+  moves: state.moves,
+  time: state.time
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onNewGameClick: (cells: number[]) => {
     dispatch(ActionCreator.setIsWon(false));
     dispatch(ActionCreator.setCells(shuffleCells(cells)));
+    dispatch(ActionCreator.setTime({ minutes: 0, seconds: 0 }));
+    dispatch(ActionCreator.setMoves(0));
   }
 });
 

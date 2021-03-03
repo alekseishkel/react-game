@@ -10,6 +10,8 @@ interface HeaderProps {
   isWon: boolean;
   moves: number;
   onMusicClick: (isMusicPlaying: boolean) => void;
+  setTime: (time: { minutes: number, seconds: number }) => void;
+  time: { minutes: number, seconds: number };
 }
 
 interface Time {
@@ -32,55 +34,29 @@ const StyledLi = styled.li`
   color: #000;
 `;
 
-const Header: React.FC<HeaderProps> = ({ isMusicPlaying, isWon, moves, onMusicClick }) => {
+let timer = null;
+const ONE_SECOND = 1000;
+const Header: React.FC<HeaderProps> = ({ isMusicPlaying, isWon, moves, onMusicClick, time, setTime }) => {
   const [isSoundOn, setIsSoundOn] = useState<boolean>(true);
-  const [time, setTime] = useState<Time>({ minutes: 0, seconds: 0 });
-
-  if (isWon) {
-    const gameTable = JSON.parse(localStorage.getItem("react-game-table"));
-    // localStorage.removeItem("react-game-table");
-
-    const lastResult = [time, moves];
-
-    let updatedGameTable;
-
-    if (gameTable === null) {
-      updatedGameTable = [lastResult];
-    }
-
-    if (gameTable !== null && gameTable.length < 10) {
-      updatedGameTable = [lastResult, ...gameTable];
-    }
-
-    if (gameTable !== null && gameTable.length >= 10) {
-      const filtredGameTable = gameTable.filter((_, i) => i > 0);
-      updatedGameTable = [lastResult, ...filtredGameTable]
-    }
-
-    localStorage.setItem("react-game-table", JSON.stringify(updatedGameTable));
-  }
 
   useEffect(() => {
-    const ONE_SECOND = 1000;
-    let timer = setTimeout(() => {
-      setTime((prevState) => {
-        if (time.seconds === 59) {
-          return {
-            minutes: prevState.minutes + 1,
-            seconds: 0
-          }
-        }
-
-        return {
-          ...prevState,
-          seconds: prevState.seconds + 1
-        }
-      });
-    }, ONE_SECOND);
-
     if (isWon) {
       clearTimeout(timer);
     }
+
+    timer = setTimeout(() => {
+      if (time.seconds >= 59 && !isWon) {
+        setTime({
+          minutes: time.minutes + 1,
+          seconds: 0
+        })
+      } else if (time.seconds < 59 && !isWon) {
+        setTime({
+          minutes: time.minutes,
+          seconds: time.seconds + 1
+        })
+      }
+    }, ONE_SECOND);
 
     return () => clearTimeout(timer);
   }, [time]);
@@ -131,12 +107,16 @@ const Header: React.FC<HeaderProps> = ({ isMusicPlaying, isWon, moves, onMusicCl
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   isMusicPlaying: state.isMusicPlaying,
   isWon: state.isWon,
-  moves: state.moves
+  moves: state.moves,
+  time: state.time
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onMusicClick: (isMusicPlaying) => {
     dispatch(ActionCreator.setIsMusicPlaying(!isMusicPlaying));
+  },
+  setTime: (time) => {
+    dispatch(ActionCreator.setTime(time));
   }
 });
 
