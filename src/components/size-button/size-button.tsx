@@ -1,12 +1,15 @@
 import React, { useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 
+import { connect } from 'react-redux';
+import ActionCreator from '../../action-creator/action-creator';
+
 import shuffleCells from '../../utils/utils';
 
 interface SizeButtonProps {
   fieldSize: number;
-  setCells: (cells: number[]) => void;
-  setFieldSize: (fieldSize: number) => void;
+  sizeButtonHandler: (cells: number[]) => void;
+  onSizeButtonClick: (evt: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const bounceButtons = keyframes`
@@ -31,11 +34,7 @@ const StyledSizeButton = styled.div`
   }
 `;
 
-const SizeButton: React.FC<SizeButtonProps> = ({ fieldSize, setFieldSize, setCells }) => {
-  const onSizeButtonClick = (evt: React.MouseEvent<HTMLButtonElement>) => {
-    setFieldSize(Number(evt.currentTarget.value));
-  };
-
+const SizeButton: React.FC<SizeButtonProps> = ({ fieldSize, sizeButtonHandler, onSizeButtonClick }) => {
   const getCells = (): number[] => {
     const numbers = new Array(fieldSize * fieldSize).fill(0).map((_, i) => ++i);
     const cells = [...numbers.slice(0, numbers.length - 1), null];
@@ -44,7 +43,7 @@ const SizeButton: React.FC<SizeButtonProps> = ({ fieldSize, setFieldSize, setCel
   }
 
   useEffect(() => {
-    setCells(getCells());
+    sizeButtonHandler(getCells());
   }, [fieldSize]);
 
   return (
@@ -56,4 +55,17 @@ const SizeButton: React.FC<SizeButtonProps> = ({ fieldSize, setFieldSize, setCel
   );
 };
 
-export default SizeButton;
+const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+  fieldSize: state.fieldSize,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  sizeButtonHandler: (cells: number[]) => {
+    dispatch(ActionCreator.setCells(cells));
+  },
+  onSizeButtonClick: (evt: React.MouseEvent<HTMLButtonElement>) => {
+    dispatch(ActionCreator.setFieldSize(Number(evt.currentTarget.value)));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SizeButton);

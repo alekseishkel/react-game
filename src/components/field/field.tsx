@@ -1,11 +1,15 @@
 import React, { useEffect } from "react";
 
+import { connect } from 'react-redux';
+import ActionCreator from '../../action-creator/action-creator';
+
 import Cell from "../cell/cell";
 
 import styled, { keyframes } from "styled-components";
 
 interface FieldProps {
   cells: number[];
+  cellHandler: (changedCells: number[], moves: number) => void;
   fieldSize: number;
   moves: number;
   isWon: boolean;
@@ -65,7 +69,7 @@ const StyledDiv = styled.div`
   }
 `;
 
-const Field: React.FC<FieldProps> = ({ cells, fieldSize, isWon, moves, setCells, setIsWon, setMoves }) => {
+const Field: React.FC<FieldProps> = ({ cells, cellHandler, fieldSize, isWon, moves, setIsWon }) => {
   const nullCellIndex: number = cells.findIndex((cell) => cell === null);
 
   const onCellClick = (number: number): void => {
@@ -80,8 +84,7 @@ const Field: React.FC<FieldProps> = ({ cells, fieldSize, isWon, moves, setCells,
     slideSound.currentTime = 0;
     slideSound.play();
 
-    setCells(changedCells);
-    setMoves(moves + 1);
+    cellHandler(changedCells, moves)
   };
 
   useEffect(() => {
@@ -117,4 +120,22 @@ const Field: React.FC<FieldProps> = ({ cells, fieldSize, isWon, moves, setCells,
   );
 };
 
-export default Field;
+const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+  cells: state.cells,
+  fieldSize: state.fieldSize,
+  isWon: state.isWon,
+  moves: state.moves
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  cellHandler: (changedCells, moves) => {
+    dispatch(ActionCreator.setCells(changedCells));
+    dispatch(ActionCreator.setMoves(moves + 1))
+  },
+  setIsWon: () => {
+    dispatch(ActionCreator.setIsWon(true));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Field);
+

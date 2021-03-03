@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Field from "../field/field";
 import Footer from "../footer/footer";
@@ -8,30 +8,17 @@ import Header from "../header/header";
 import Music from "../audio/music";
 import SizeButton from "../size-button/size-button";
 
-import shuffleCells from '../../utils/utils';
-
-interface Time {
-  minutes: number;
-  seconds: number;
-}
-
 const App: React.FC = () => {
-  const [cells, setCells] = useState<number[]>([1, 2, 3, 4, 5, 6, 7, null, 8]);
-  const [fieldSize, setFieldSize] = useState<number>(4);
-  const [isWon, setIsWon] = useState<boolean>(false);
-  const [isMusicPlaying, setIsMusicPlaying] = useState<boolean>(false);
-  const [moves, setMoves] = useState<number>(0);
 
   return (
     <React.Fragment>
       <GlobalStyle />
-      <GameWon cells={cells} isWon={isWon} setCells={setCells} setIsWon={setIsWon} />
-      <Music isMusicPlaying={isMusicPlaying} />
-      <Header isMusicPlaying={isMusicPlaying} isWon={isWon} moves={moves} setIsMusicPlaying={setIsMusicPlaying} />
+      <GameWon />
+      <Music />
+      <Header />
       <main>
-        <Field cells={cells} fieldSize={fieldSize} isWon={isWon} moves={moves}
-          setCells={setCells} setIsWon={setIsWon} setMoves={setMoves} />
-        <SizeButton fieldSize={fieldSize} setCells={setCells} setFieldSize={setFieldSize} />
+        <Field />
+        <SizeButton />
       </main>
       <Footer />
     </React.Fragment>

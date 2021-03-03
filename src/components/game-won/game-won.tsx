@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from 'react-redux';
+import ActionCreator from '../../action-creator/action-creator';
 
 import styled, { keyframes, css } from "styled-components";
 
@@ -7,8 +9,7 @@ import shuffleCells from '../../utils/utils';
 interface GameWonProps {
   cells: number[];
   isWon: boolean;
-  setCells: (cells: number[]) => void;
-  setIsWon: (isWon: boolean) => void;
+  onNewGameClick: (cells: number[]) => void;
 }
 
 const bounce = keyframes`
@@ -61,7 +62,6 @@ const StyledGameWon = styled.div`
   font-family: "Segoe UI";
   font-size: 40px;
   background-color: rgba(0, 0, 0, 0.3);
-
 `;
 
 const StyledDiv = styled.div`
@@ -69,13 +69,16 @@ const StyledDiv = styled.div`
   justify-content: center;
   align-items: stretch;
   flex-wrap: wrap;
-  width: 350px;
-  height: 280px;
+  width: 340pw;
   border: 10px solid #b0bec5;
   border-radius: 5px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
   background-color: #eceff1;
   animation: ${bounce} 1s linear;
+`
+
+const StyledTable = styled.table`
+  font-size: 1.5rem;
 `
 
 const StyledParagraph = styled.div`
@@ -89,7 +92,7 @@ const StyledButton = styled.button`
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   animation: ${shake} 1s linear infinite;
 `
-const GameWon: React.FC<GameWonProps> = ({ cells, isWon, setCells, setIsWon }) => {
+const GameWon: React.FC<GameWonProps> = ({ cells, isWon, onNewGameClick }) => {
   if (!isWon) {
     return null;
   }
@@ -98,12 +101,30 @@ const GameWon: React.FC<GameWonProps> = ({ cells, isWon, setCells, setIsWon }) =
     <StyledGameWon>
       <StyledDiv>
         <StyledParagraph>Вы победили!</StyledParagraph>
+        <StyledTable>
+          <tr>
+            <th>Последние результаты:</th>
+          </tr>
+          <tr>
+            <td></td>
+            <td>Время</td>
+            <td>Шаги</td>
+          </tr>
+          {JSON.parse(localStorage.getItem("react-game-table")).map((el, i) => {
+            return (
+              <tr>
+                <td>{i + 1}</td>
+                <td>{el[0].minutes}:{el[0].seconds}</td>
+                <td>{el[1]}</td>
+              </tr>
+            )
+          })}
+        </StyledTable>
         <StyledButton
           className="waves-effect waves-light btn"
           value="3"
           onClick={() => {
-            setIsWon(false)
-            setCells(shuffleCells(cells));
+
           }}>
           Новая игра
         </StyledButton>
@@ -112,4 +133,16 @@ const GameWon: React.FC<GameWonProps> = ({ cells, isWon, setCells, setIsWon }) =
   );
 };
 
-export default GameWon;
+const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+  cells: state.cells,
+  isWon: state.isWon
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onNewGameClick: (cells: number[]) => {
+    dispatch(ActionCreator.setIsWon(false));
+    dispatch(ActionCreator.setCells(shuffleCells(cells)));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(GameWon);

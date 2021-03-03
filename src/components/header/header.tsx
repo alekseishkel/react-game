@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
+
+import { connect } from 'react-redux';
+import ActionCreator from '../../action-creator/action-creator';
+
 import styled from "styled-components";
 
 interface HeaderProps {
   isMusicPlaying: boolean;
   isWon: boolean;
   moves: number;
-  setIsMusicPlaying: (isMusicPlaying: boolean) => void;
+  onMusicClick: (isMusicPlaying: boolean) => void;
 }
 
 interface Time {
@@ -28,24 +32,31 @@ const StyledLi = styled.li`
   color: #000;
 `;
 
-const Header: React.FC<HeaderProps> = ({ isMusicPlaying, isWon, moves, setIsMusicPlaying }) => {
+const Header: React.FC<HeaderProps> = ({ isMusicPlaying, isWon, moves, onMusicClick }) => {
   const [isSoundOn, setIsSoundOn] = useState<boolean>(true);
-  const [time, setTime] = useState<Time>({minutes:0,seconds:0});
+  const [time, setTime] = useState<Time>({ minutes: 0, seconds: 0 });
 
   if (isWon) {
     const gameTable = JSON.parse(localStorage.getItem("react-game-table"));
-    
-    localStorage.removeItem("react-game-table");
-    
+    // localStorage.removeItem("react-game-table");
+
     const lastResult = [time, moves];
-    
+
     let updatedGameTable;
-    if (gameTable !== null) {
-      updatedGameTable = [lastResult, ...gameTable];
-    } else {
+
+    if (gameTable === null) {
       updatedGameTable = [lastResult];
     }
-    
+
+    if (gameTable !== null && gameTable.length < 10) {
+      updatedGameTable = [lastResult, ...gameTable];
+    }
+
+    if (gameTable !== null && gameTable.length >= 10) {
+      const filtredGameTable = gameTable.filter((_, i) => i > 0);
+      updatedGameTable = [lastResult, ...filtredGameTable]
+    }
+
     localStorage.setItem("react-game-table", JSON.stringify(updatedGameTable));
   }
 
@@ -94,7 +105,7 @@ const Header: React.FC<HeaderProps> = ({ isMusicPlaying, isWon, moves, setIsMusi
           </li>
           <li>
             <a className="black-text" onClick={() => {
-              setIsMusicPlaying(!isMusicPlaying);
+              onMusicClick(isMusicPlaying);
               const music = document.getElementById("music") as HTMLAudioElement;
               isMusicPlaying ? music.pause() : music.play();
             }}>
@@ -106,7 +117,7 @@ const Header: React.FC<HeaderProps> = ({ isMusicPlaying, isWon, moves, setIsMusi
             <a className="black-text" onClick={() => {
               setIsSoundOn(!isSoundOn);
               const slideSound = document.getElementById("slide-sound") as HTMLAudioElement;
-              isSoundOn ? slideSound.volume = 0 : slideSound.volume = 1;
+              isSoundOn ? slideSound.volume = 1 : slideSound.volume = 1;
             }}>
               <StyledImg src={isSoundOn ? "/img/volume-on.svg" : "/img/volume-off.svg"} width="40px" alt="Sound on/off" />
             </a>
@@ -117,4 +128,16 @@ const Header: React.FC<HeaderProps> = ({ isMusicPlaying, isWon, moves, setIsMusi
   );
 };
 
-export default Header;
+const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+  isMusicPlaying: state.isMusicPlaying,
+  isWon: state.isWon,
+  moves: state.moves
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onMusicClick: (isMusicPlaying) => {
+    dispatch(ActionCreator.setIsMusicPlaying(!isMusicPlaying));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

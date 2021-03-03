@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
+import { connect } from 'react-redux';
+
 interface MusicProps {
   isMusicPlaying: boolean;
 }
@@ -21,4 +23,8 @@ const Music: React.FC<MusicProps> = ({ isMusicPlaying }) => {
   );
 }
 
-export default Music;
+const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+  isMusicPlaying: state.isMusicPlaying
+});
+
+export default connect(mapStateToProps)(Music);
