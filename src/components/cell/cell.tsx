@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled, { keyframes, css } from "styled-components";
 
 interface CellProps {
@@ -9,6 +9,7 @@ interface CellProps {
   nullCellIndex: number;
   number: number;
   onCellClick: (nubmer: number) => void;
+  onKeyDown: (nubmer: number) => void;
 }
 
 const FIELD_SIZE_IN_PERCENTS = 100;
@@ -38,7 +39,11 @@ const StyledCell = styled.div`
     props.allowedCell && props.isWon === false ? animation : "none")};
 `;
 
-const Cell: React.FC<CellProps> = ({ cellIndex, fieldSize, isWon, number, nullCellIndex, onCellClick }) => {
+
+const Cell: React.FC<CellProps> = ({ cellIndex, fieldSize, isWon, number, nullCellIndex, onCellClick, onKeyDown }) => {
+
+
+
   if (((nullCellIndex + 1) % fieldSize === 0 && cellIndex % fieldSize === 0) ||
     (nullCellIndex % fieldSize === 0 && (cellIndex + 1) % fieldSize === 0)
   ) {
@@ -57,8 +62,8 @@ const Cell: React.FC<CellProps> = ({ cellIndex, fieldSize, isWon, number, nullCe
         isWon={isWon}
         fieldSize={fieldSize}
         onClick={() => onCellClick(number)}>
-        {number}
-      </StyledCell>
+        { number}
+      </StyledCell >
     );
   }
 

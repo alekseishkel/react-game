@@ -72,7 +72,9 @@ const StyledDiv = styled.div`
 const Field: React.FC<FieldProps> = ({ cells, cellHandler, fieldSize, isWon, moves, setIsWon }) => {
   const nullCellIndex: number = cells.findIndex((cell) => cell === null);
 
-  const onCellClick = (number: number): void => {
+  const cellListener = (number: number): void => {
+    console.log(number);
+
     const cellIndex: number = cells.findIndex((cell) => cell === number);
     const changedCells = cells.slice();
 
@@ -86,6 +88,25 @@ const Field: React.FC<FieldProps> = ({ cells, cellHandler, fieldSize, isWon, mov
     slideSound.currentTime = 0;
     slideSound.play();
   };
+  console.log(nullCellIndex, fieldSize, nullCellIndex - fieldSize);
+
+  useEffect(() => {
+    const onWindowKeyDown = addEventListener("keydown", (evt) => {
+      switch (evt.key) {
+        case "ArrowUp":
+          return cellListener(cells[cells.findIndex((cell) => cell === nullCellIndex - fieldSize)]);
+        case "ArrowDown":
+          return cellListener(nullCellIndex + fieldSize);
+        case "ArrowLeft":
+          return cellListener(nullCellIndex + 1);
+        case "ArrowRight":
+          return cellListener(nullCellIndex - 1);
+      }
+    })
+
+    return () => (window as any).removeEventListener("keydown", onWindowKeyDown)
+  }, [])
+
 
   useEffect(() => {
     const isCellsInOrder = cells.every((el, i) => {
@@ -112,7 +133,8 @@ const Field: React.FC<FieldProps> = ({ cells, cellHandler, fieldSize, isWon, mov
             key={number}
             nullCellIndex={nullCellIndex}
             number={number}
-            onCellClick={onCellClick}
+            onCellClick={cellListener}
+            onKeyDown={cellListener}
           />;
         })}
       </StyledDiv>
