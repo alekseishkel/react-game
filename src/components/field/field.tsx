@@ -104,7 +104,7 @@ const Field: React.FC<FieldProps> = ({ cells, cellHandler, fieldSize, isWon, mov
   }
 
   useEffect(() => {
-    window.addEventListener("keyup", moveCell)
+    window.addEventListener("keyup", moveCell);
 
     return () => (window as any).removeEventListener("keyup", moveCell);
 

@@ -35,13 +35,32 @@ const StyledSizeButton = styled.div`
 `;
 
 const SizeButton: React.FC<SizeButtonProps> = ({ fieldSize, sizeButtonHandler }) => {
-  const onSizeButtonClick = (evt: React.MouseEvent<HTMLButtonElement>): void => {
+  const onSizeButtonClick = (evt: any): void => {
     const size = Number(evt.currentTarget.value);
     const numbers = new Array(size * size).fill(0).map((_, i) => ++i);
     const cells = [...numbers.slice(0, numbers.length - 1), null];
 
     sizeButtonHandler(evt, shuffleCells(cells));
   }
+
+  const enterKeyup = (evt) => {
+    if (evt.key === "Enter") {
+      const size = {
+        currentTarget: {
+          value: fieldSize
+        }
+      }
+      onSizeButtonClick(size);
+    }
+    
+  }
+
+  useEffect(() => {
+    window.addEventListener("keyup", enterKeyup);
+
+    return () => (window as any).removeEventListener("keyup", enterKeyup);
+
+  }, [])
 
   return (
     <StyledSizeButton>
