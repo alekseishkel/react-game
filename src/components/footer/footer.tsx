@@ -1,22 +1,29 @@
 import React from "react";
+import { connect } from 'react-redux';
+
 import styled from "styled-components";
+
+interface FooterProps {
+  lang: string
+}
 
 const Copyright = styled.div`
   text-align: center;
 `;
 
-const Footer: React.FC = () => {
+const StyledH5 = styled.h5`
+  margin: 0.8rem 0 .656rem 0;
+`
+
+const Footer: React.FC<FooterProps> = ({lang}) => {
   return (
     <footer className="page-footer blue-grey lighten-5">
       <div className="container">
         <div className="row">
           <div className="col l6 s12">
-            <h5 className="black-text">Правила игры</h5>
+            <StyledH5 className="black-text">{lang === "ru" ? "Правила" : "Rules"}</StyledH5>
             <p className="black-text rules">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorem
-              nostrum ullam debitis possimus libero amet eum consectetur natus?
-              Adipisci iure ratione cupiditate sit, quam voluptatum error libero
-              praesentium cum iusto!
+            {lang === "ru" ? "Цель игры Пятнашки - выстроить все цифры по порядку. Чтобы переместить цифру вместо пустой ячейки - нажмите на нее. Также в игру можно играть с помощью горячих клавиш: Стрелка влево - переместить правую цифру относительно пустой ячейки. Стрелка вправо - переместить левую цифру. Стрелка вверх - переместить нижнюю цифру. Стрелка вниз - переместить верхнюю цифру. Клавиша Enter - новая игра" : "The goal of the game is to line up all the numbers in order. To move a number instead of an empty cell - click on it. You can also play the game using the following hotkeys: Left arrow - move the right number relative to the empty cell. Right arrow - move the left number. Up arrow - move the bottom number. Down arrow - move the top number. Enter key - new game"}
             </p>
           </div>
           <div className="col l4 offset-l2 s12">
@@ -59,4 +66,8 @@ const Footer: React.FC = () => {
   );
 };
 
-export default Footer;
+const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+  lang: state.lang
+});
+
+export default connect(mapStateToProps)(Footer);

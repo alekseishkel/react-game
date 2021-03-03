@@ -20,7 +20,7 @@ const initialState = {
   time:
     JSON.parse(sessionStorage.getItem(`react-game-data`)) !== null
       ? JSON.parse(sessionStorage.getItem(`react-game-data`)).time
-      : { minutes: 0, seconds: 0 },
+      : {minutes: 0, seconds: 0},
   isMusicPlaying:
     JSON.parse(sessionStorage.getItem(`react-game-data`)) !== null
       ? JSON.parse(sessionStorage.getItem(`react-game-data`)).isMusicPlaying
@@ -29,6 +29,10 @@ const initialState = {
     JSON.parse(sessionStorage.getItem(`react-game-data`)) !== null
       ? JSON.parse(sessionStorage.getItem(`react-game-data`)).isSoundOn
       : true,
+  lang:
+      JSON.parse(sessionStorage.getItem(`react-game-data`)) !== null
+        ? JSON.parse(sessionStorage.getItem(`react-game-data`)).lang
+        : `ru`,
 };
 
 const reducer = (state = initialState, action) => {
@@ -60,6 +64,10 @@ const reducer = (state = initialState, action) => {
     case `SET_IS_SOUND_ON`:
       return Object.assign({}, state, {
         isSoundOn: action.payload,
+      });
+    case `SET_LANGUAGE`:
+      return Object.assign({}, state, {
+        lang: action.payload,
       });
     default:
       return state;

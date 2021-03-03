@@ -33,6 +33,11 @@ const ActionCreator = {
     type: `SET_IS_SOUND_ON`,
     payload: isSoundOn,
   }),
+
+  setLanguage: (language) => ({
+    type: `SET_LANGUAGE`,
+    payload: language,
+  }),
 };
 
 export default ActionCreator;
