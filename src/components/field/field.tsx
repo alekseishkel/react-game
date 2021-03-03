@@ -71,41 +71,46 @@ const StyledDiv = styled.div`
 
 const Field: React.FC<FieldProps> = ({ cells, cellHandler, fieldSize, isWon, moves, setIsWon }) => {
   const nullCellIndex: number = cells.findIndex((cell) => cell === null);
-
+  
   const cellListener = (number: number): void => {
-    console.log(number);
-
     const cellIndex: number = cells.findIndex((cell) => cell === number);
-    const changedCells = cells.slice();
+    console.log(nullCellIndex, (nullCellIndex + 1) % fieldSize === 0, cellIndex - nullCellIndex !== 1);
+    
+    if (0 < number && number < fieldSize * fieldSize) {
+      const changedCells = cells.slice();
+      console.log(nullCellIndex, cellIndex);
+      
+      changedCells.splice(cellIndex, 1, null);
+      changedCells.splice(nullCellIndex, 1, number);
 
-    changedCells.splice(cellIndex, 1, null);
-    changedCells.splice(nullCellIndex, 1, number);
+      cellHandler(changedCells, moves);
 
-    cellHandler(changedCells, moves);
-
-    const slideSound = document.getElementById("slide-sound") as HTMLAudioElement;
-    slideSound.pause();
-    slideSound.currentTime = 0;
-    slideSound.play();
+      const slideSound = document.getElementById("slide-sound") as HTMLAudioElement;
+      slideSound.pause();
+      slideSound.currentTime = 0;
+      slideSound.play();
+    }
   };
-  console.log(nullCellIndex, fieldSize, nullCellIndex - fieldSize);
+
+  const moveCell = (evt) => {
+    switch (evt.key) {
+      case "ArrowUp":
+        return cellListener(cells[nullCellIndex + fieldSize]);
+      case "ArrowDown":
+        return cellListener(cells[nullCellIndex - fieldSize]);
+      case "ArrowLeft":
+        return cellListener(cells[nullCellIndex + 1]);
+      case "ArrowRight":
+        return cellListener(cells[nullCellIndex - 1]);
+    }
+  }
 
   useEffect(() => {
-    const onWindowKeyDown = addEventListener("keydown", (evt) => {
-      switch (evt.key) {
-        case "ArrowUp":
-          return cellListener(cells[cells.findIndex((cell) => cell === nullCellIndex - fieldSize)]);
-        case "ArrowDown":
-          return cellListener(nullCellIndex + fieldSize);
-        case "ArrowLeft":
-          return cellListener(nullCellIndex + 1);
-        case "ArrowRight":
-          return cellListener(nullCellIndex - 1);
-      }
-    })
+    window.addEventListener("keyup", moveCell)
 
-    return () => (window as any).removeEventListener("keydown", onWindowKeyDown)
-  }, [])
+    return () => (window as any).removeEventListener("keyup", moveCell);
+
+  }, [moves])
 
 
   useEffect(() => {

@@ -39,7 +39,6 @@ const SizeButton: React.FC<SizeButtonProps> = ({ fieldSize, sizeButtonHandler })
     const size = Number(evt.currentTarget.value);
     const numbers = new Array(size * size).fill(0).map((_, i) => ++i);
     const cells = [...numbers.slice(0, numbers.length - 1), null];
-    console.log(shuffleCells(fieldSize));
 
     sizeButtonHandler(evt, shuffleCells(cells));
   }

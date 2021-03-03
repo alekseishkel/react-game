@@ -40,10 +40,7 @@ const StyledCell = styled.div`
 `;
 
 
-const Cell: React.FC<CellProps> = ({ cellIndex, fieldSize, isWon, number, nullCellIndex, onCellClick, onKeyDown }) => {
-
-
-
+const Cell: React.FC<CellProps> = ({ cellIndex, fieldSize, isWon, number, nullCellIndex, onCellClick }) => {
   if (((nullCellIndex + 1) % fieldSize === 0 && cellIndex % fieldSize === 0) ||
     (nullCellIndex % fieldSize === 0 && (cellIndex + 1) % fieldSize === 0)
   ) {
@@ -62,7 +59,7 @@ const Cell: React.FC<CellProps> = ({ cellIndex, fieldSize, isWon, number, nullCe
         isWon={isWon}
         fieldSize={fieldSize}
         onClick={() => onCellClick(number)}>
-        { number}
+        {number}
       </StyledCell >
     );
   }

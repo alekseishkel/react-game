@@ -106,6 +106,7 @@ const GameWon: React.FC<GameWonProps> = ({ cells, isWon, moves, onNewGameClick, 
   }
 
   const gameTable = JSON.parse(localStorage.getItem("react-game-table"));
+  
   const lastResult = [time, moves];
   let updatedGameTable;
 
