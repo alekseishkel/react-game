@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
+
 import styled, { keyframes, css } from "styled-components";
 
 interface CellProps {

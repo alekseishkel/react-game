@@ -30,9 +30,13 @@ const initialState = {
       ? JSON.parse(sessionStorage.getItem(`react-game-data`)).isSoundOn
       : true,
   lang:
-      JSON.parse(sessionStorage.getItem(`react-game-data`)) !== null
-        ? JSON.parse(sessionStorage.getItem(`react-game-data`)).lang
-        : `ru`,
+    JSON.parse(sessionStorage.getItem(`react-game-data`)) !== null
+      ? JSON.parse(sessionStorage.getItem(`react-game-data`)).lang
+      : `ru`,
+  mainColor:
+    JSON.parse(sessionStorage.getItem(`react-game-data`)) !== null
+      ? JSON.parse(sessionStorage.getItem(`react-game-data`)).lang
+      : `#eceff1`
 };
 
 const reducer = (state = initialState, action) => {
@@ -68,6 +72,10 @@ const reducer = (state = initialState, action) => {
     case `SET_LANGUAGE`:
       return Object.assign({}, state, {
         lang: action.payload,
+      });
+    case `SET_MAIN_COLOR`:
+      return Object.assign({}, state, {
+        mainColor: action.payload,
       });
     default:
       return state;

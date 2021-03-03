@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import styled from "styled-components";
 
 interface FooterProps {
-  lang: string
+  lang: string,
+  mainColor: string;
 }
 
 const Copyright = styled.div`
@@ -15,9 +16,13 @@ const StyledH5 = styled.h5`
   margin: 0.8rem 0 .656rem 0;
 `
 
-const Footer: React.FC<FooterProps> = ({lang}) => {
+const StyledFooter = styled.footer`
+  background-color: ${(props: { color: string }) => props.color === "#eceff1" ? "#eceff1" : "#607d8b"};
+`
+
+const Footer: React.FC<FooterProps> = ({lang, mainColor}) => {
   return (
-    <footer className="page-footer blue-grey lighten-5">
+    <StyledFooter color={mainColor} className="page-footer">
       <div className="container">
         <div className="row">
           <div className="col l6 s12">
@@ -27,7 +32,7 @@ const Footer: React.FC<FooterProps> = ({lang}) => {
             </p>
           </div>
           <div className="col l4 offset-l2 s12">
-            <h5 className="black-text">Ссылки</h5>
+            <h5 className="black-text">{lang === "ru" ? "Ссылки" : "Links"}</h5>
             <ul className="links">
               <li>
                 <a
@@ -59,15 +64,16 @@ const Footer: React.FC<FooterProps> = ({lang}) => {
       </div>
       <div className="footer-copyright">
         <div className="container black-text">
-          <Copyright>© 2021 Пятнашки</Copyright>
+          <Copyright>{lang === "ru" ? "© 2021 Пятнашки" : "© 2021 Piatnashki"}</Copyright>
         </div>
       </div>
-    </footer>
+    </StyledFooter>
   );
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
-  lang: state.lang
+  lang: state.lang,
+  mainColor: state.mainColor
 });
 
 export default connect(mapStateToProps)(Footer);

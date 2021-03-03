@@ -8,6 +8,7 @@ import shuffleCells from '../../utils/utils';
 
 interface SizeButtonProps {
   fieldSize: number;
+  lang: string
   sizeButtonHandler: (evt: React.MouseEvent<HTMLButtonElement>, cells: number[]) => void;
   onSizeButtonClick: (evt: React.MouseEvent<HTMLButtonElement>) => void;
 }
@@ -34,7 +35,7 @@ const StyledSizeButton = styled.div`
   }
 `;
 
-const SizeButton: React.FC<SizeButtonProps> = ({ fieldSize, sizeButtonHandler }) => {
+const SizeButton: React.FC<SizeButtonProps> = ({ lang, fieldSize, sizeButtonHandler }) => {
   const onSizeButtonClick = (evt: any): void => {
     const size = Number(evt.currentTarget.value);
     const numbers = new Array(size * size).fill(0).map((_, i) => ++i);
@@ -64,15 +65,16 @@ const SizeButton: React.FC<SizeButtonProps> = ({ fieldSize, sizeButtonHandler })
 
   return (
     <StyledSizeButton>
-      <button className="waves-effect waves-light btn" value="3" onClick={onSizeButtonClick}>Новая игра: 3х3</button>
-      <button className="waves-effect waves-light btn" value="4" onClick={onSizeButtonClick}>Новая игра: 4х4</button>
-      <button className="waves-effect waves-light btn" value="5" onClick={onSizeButtonClick}>Новая игра: 5х5</button>
+      <button className="waves-effect waves-light btn" value="3" onClick={onSizeButtonClick}>{lang === "ru" ? "Новая игра: 3х3" : "New game: 3x3"}</button>
+      <button className="waves-effect waves-light btn" value="4" onClick={onSizeButtonClick}>{lang === "ru" ? "Новая игра: 4х4" : "New game: 4x4"}</button>
+      <button className="waves-effect waves-light btn" value="5" onClick={onSizeButtonClick}>{lang === "ru" ? "Новая игра: 5х5" : "New game: 5x5"}</button>
     </StyledSizeButton >
   );
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   fieldSize: state.fieldSize,
+  lang: state.lang
 });
 
 const mapDispatchToProps = (dispatch) => ({

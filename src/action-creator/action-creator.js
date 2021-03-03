@@ -38,6 +38,11 @@ const ActionCreator = {
     type: `SET_LANGUAGE`,
     payload: language,
   }),
+
+  setMainColor: (color) => ({
+    type: `SET_MAIN_COLOR`,
+    payload: color,
+  }),
 };
 
 export default ActionCreator;
