@@ -162,6 +162,8 @@ object-assign
     .s12 {
       text-align: center;
     }
+
+
   }
   
   @media (max-width: 650px) {
@@ -169,9 +171,22 @@ object-assign
       text-align: center;
     }
 
+    .row {
+      margin-bottom: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
     .row .col.offset-l2 {
+      width: auto;
+      margin-left: 0;
       align-self: center;
     }
+
+    .row .col.s12 {
+      margin-left: 0;
+  }
 
     .row .col.l6 {
       width: 95%;
@@ -179,6 +194,7 @@ object-assign
 
     .container {
       display: flex;
+      justify-content: center;
       width: 100%;
     }
   }
@@ -256,7 +272,6 @@ object-assign
 `;t.default=u.connect((e,t)=>Object.assign({},t,{cells:e.cells,isWon:e.isWon,moves:e.moves,time:e.time}),e=>({onNewGameClick:t=>{e(s.default.setIsWon(!1)),e(s.default.setCells(f.default(t))),e(s.default.setTime({minutes:0,seconds:0})),e(s.default.setMoves(0))}}))(({cells:e,isWon:t,moves:n,onNewGameClick:r,time:a})=>{if(!t)return null;const o=JSON.parse(localStorage.getItem("react-game-table")),l=[a,n];let u;if(null===o&&(u=[l]),null!==o&&o.length<10&&(u=[l,...o]),null!==o&&o.length>=10){u=[l,...o.filter((e,t)=>t<9)]}return localStorage.setItem("react-game-table",JSON.stringify(u)),i.default.createElement(h,null,i.default.createElement(m,null,i.default.createElement(v,null,"Вы победили!"),i.default.createElement(g,null,i.default.createElement("thead",null,i.default.createElement("tr",null,i.default.createElement("th",null,"Последние результаты:"))),i.default.createElement("tbody",null,i.default.createElement("tr",null,i.default.createElement(y,null),i.default.createElement(y,null,"Время"),i.default.createElement(y,null,"Шаги")),u.map((e,t)=>i.default.createElement("tr",{key:e[1].toString()+t.toString()},i.default.createElement(y,null,t+1),i.default.createElement(y,null,e[0].minutes,":",e[0].seconds),i.default.createElement(y,null,e[1]))))),i.default.createElement(b,{className:"waves-effect waves-light btn",value:"3",onClick:()=>r(e)},"Новая игра")))})},function(e,t,n){"use strict";var r=this&&this.__createBinding||(Object.create?function(e,t,n,r){void 0===r&&(r=n),Object.defineProperty(e,r,{enumerable:!0,get:function(){return t[n]}})}:function(e,t,n,r){void 0===r&&(r=n),e[r]=t[n]}),a=this&&this.__setModuleDefault||(Object.create?function(e,t){Object.defineProperty(e,"default",{enumerable:!0,value:t})}:function(e,t){e.default=t}),o=this&&this.__importStar||function(e){if(e&&e.__esModule)return e;var t={};if(null!=e)for(var n in e)"default"!==n&&Object.prototype.hasOwnProperty.call(e,n)&&r(t,e,n);return a(t,e),t},l=this&&this.__importDefault||function(e){return e&&e.__esModule?e:{default:e}};Object.defineProperty(t,"__esModule",{value:!0});const i=o(n(0)),u=n(2),s=l(n(5)),c=l(n(1)),f=c.default.nav`
   padding: 0 1%;
   background-color: ${e=>"#eceff1"===e.color?"#eceff1":"#607d8b"};
-
 `,d=c.default.img`
   vertical-align: middle;
 `,p=c.default.li`
